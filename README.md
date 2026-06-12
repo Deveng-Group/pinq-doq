@@ -51,12 +51,18 @@ git submodule update --init
 
 ## Updating rules
 
-When pinq-doq has new changes, run inside your project:
+Your project does not track pinq-doq's files directly — it only records **which commit of pinq-doq to use**. When pinq-doq has new changes and you want to adopt them, run inside your project:
+
 ```bash
+# Pull the latest pinq-doq commit into .claude/rules
 git submodule update --remote .claude/rules
+
+# Record the new commit reference in your project
 git add .claude/rules
 git commit -m "Update Claude rules"
 ```
+
+The `git add .claude/rules` step saves the pointer update ("use pinq-doq commit X instead of Y") into your project's history. Without this commit, other team members would still get the old version.
 
 ## Files
 
