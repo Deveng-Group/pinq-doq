@@ -1,6 +1,6 @@
 # pinq-doq
 
-Deveng Group shared Claude rules and project standards.
+PinqPonq shared Claude rules and project standards.
 
 ## Usage
 
