@@ -2,22 +2,23 @@
 
 PinqPonq shared Claude rules and project standards.
 
-## Claude prompt — first-time setup
+---
 
-Copy this prompt and send it to Claude inside your project:
+## Setup — Option A: Let Claude do it
+
+Open Claude inside your project and send this prompt:
 
 ```
 Integrate pinq-doq into this project as a shared Claude rules submodule.
 
-Steps:
 1. Run: git submodule add https://github.com/Deveng-Group/pinq-doq.git .claude/rules
 2. Commit .gitmodules and .claude/rules with message: "Add pinq-doq as shared Claude rules submodule"
 3. Create a CLAUDE.md at the project root with the appropriate imports:
-   - If this is an Android or KMP project:
+   - Android or KMP project:
        @.claude/rules/common.md
        @.claude/rules/android-kotlin.md
        @.claude/rules/tasks/update-rules.md
-   - If this is a C# backend project:
+   - C# backend project:
        @.claude/rules/common.md
        @.claude/rules/csharp-dotnet.md
        @.claude/rules/tasks/update-rules.md
@@ -26,41 +27,49 @@ Steps:
 
 ---
 
-## Integrating into a new project
+## Setup — Option B: Manual
 
-Do this once per project to wire up pinq-doq.
-
-**1. Inside your project repo, run:**
+**1. Add submodule**
 ```bash
 git submodule add https://github.com/Deveng-Group/pinq-doq.git .claude/rules
 ```
 
-This clones pinq-doq into `.claude/rules/` and auto-creates a `.gitmodules` file:
+This clones pinq-doq into `.claude/rules/` and auto-creates `.gitmodules`:
 ```
 [submodule ".claude/rules"]
     path = .claude/rules
     url = https://github.com/Deveng-Group/pinq-doq.git
 ```
 
-**2. Commit both files to your project:**
+**2. Commit**
 ```bash
 git add .gitmodules .claude/rules
 git commit -m "Add pinq-doq as shared Claude rules submodule"
 ```
 
-**3. Create a `CLAUDE.md` at your project root:**
+**3. Create `CLAUDE.md` at project root**
 
-For Android / KMP projects:
-```markdown
+Android / KMP:
+```
 @.claude/rules/common.md
 @.claude/rules/android-kotlin.md
+@.claude/rules/tasks/update-rules.md
 ```
 
-For C# backend projects:
-```markdown
+C# backend:
+```
 @.claude/rules/common.md
 @.claude/rules/csharp-dotnet.md
+@.claude/rules/tasks/update-rules.md
 ```
+
+**4. Commit CLAUDE.md**
+```bash
+git add CLAUDE.md
+git commit -m "Add CLAUDE.md"
+```
+
+---
 
 ## Cloning a project that already has pinq-doq
 
@@ -68,25 +77,26 @@ For C# backend projects:
 git clone --recurse-submodules <repo-url>
 ```
 
-If you already cloned without `--recurse-submodules`:
+Already cloned without that flag?
 ```bash
 git submodule update --init
 ```
 
+---
+
 ## Updating rules
 
-Your project does not track pinq-doq's files directly — it only records **which commit of pinq-doq to use**. When pinq-doq has new changes and you want to adopt them, run inside your project:
+Your project only records **which commit of pinq-doq to use**, not the files themselves. When pinq-doq is updated and you want to adopt the changes:
 
 ```bash
-# Pull the latest pinq-doq commit into .claude/rules
 git submodule update --remote .claude/rules
-
-# Record the new commit reference in your project
 git add .claude/rules
 git commit -m "Update Claude rules"
 ```
 
-The `git add .claude/rules` step saves the pointer update ("use pinq-doq commit X instead of Y") into your project's history. Without this commit, other team members would still get the old version.
+The `git add .claude/rules` saves the new commit pointer. Without it, teammates would still get the old version.
+
+---
 
 ## Files
 
@@ -95,7 +105,10 @@ The `git add .claude/rules` step saves the pointer update ("use pinq-doq commit 
 | `common.md` | All projects, all languages |
 | `android-kotlin.md` | Android, KMP, Compose projects |
 | `csharp-dotnet.md` | C# / .NET backend projects |
+| `tasks/update-rules.md` | Update rules via Claude |
+
+---
 
 ## Contributing
 
-Changes to these standards affect all projects. Open a PR and get team review before merging.
+Changes here affect all projects. Open a PR and get team review before merging.
