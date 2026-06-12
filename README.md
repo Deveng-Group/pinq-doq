@@ -16,7 +16,6 @@ Steps:
    - If this is an Android or KMP project:
        @.claude/rules/common.md
        @.claude/rules/android-kotlin.md
-       @.claude/rules/tasks/prepare-release.md
        @.claude/rules/tasks/update-rules.md
    - If this is a C# backend project:
        @.claude/rules/common.md
@@ -96,7 +95,6 @@ The `git add .claude/rules` step saves the pointer update ("use pinq-doq commit 
 | `common.md` | All projects, all languages |
 | `android-kotlin.md` | Android, KMP, Compose projects |
 | `csharp-dotnet.md` | C# / .NET backend projects |
-| `tasks/prepare-release.md` | Release preparation workflow |
 
 ## Contributing
 
